@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Ajax Demo</title>
+	<script type="text/javascript">
+		var xhr = new XMLHttpRequest();
+		function callRequest(){
+			var firstNum = document.getElementById('firstNum').value;
+			var secondNum = document.getElementById('secondNum').value;
+			
+			xhr.open('GET', 'ajax.jsp?firstNum='+firstNum+'&secondNum='+secondNum,true);
+			xhr.send(null);
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState==4 && xhr.status == 200){
+					var returnValue = JSON.parse(xhr.responseText);//{"data":3}
+					document.getElementById('result').value = returnValue.data;
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<input type='text' id='firstNum'  size='4'/><br/>
+	<input type='text' id='secondNum'  size='4'/><br/>
+	<input type='button' value='Ajax호출' onclick='callRequest()'/>
+	<hr/>
+	<input type='text' id='result'  size='10'/><br/>
+	
+</body>
+</html>
